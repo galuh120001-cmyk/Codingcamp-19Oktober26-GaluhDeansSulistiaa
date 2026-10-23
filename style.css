@@ -1,0 +1,337 @@
+/* style.css — To-Do Life Dashboard */
+
+/* ============================================================
+   1. CSS Reset & Box-Sizing
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   2. Design Tokens (colour palette)
+   ============================================================ */
+:root {
+  --color-bg:          #f0f4f8;
+  --color-panel:       #ffffff;
+  --color-text:        #1a202c;
+  --color-text-muted:  #4a5568;
+  --color-accent:      #4361ee;
+  --color-accent-dark: #3451d1;
+  --color-error:       #e53e3e;
+  --color-border:      #e2e8f0;
+  --color-shadow:      rgba(0, 0, 0, 0.08);
+
+  --radius:            10px;
+  --panel-padding:     1.5rem;
+  --gap:               1.5rem;   /* ≥ 16px gap between panels */
+}
+
+/* ============================================================
+   3. Body & Base Typography
+   ============================================================ */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 16px;          /* ≥ 14px requirement */
+  line-height: 1.6;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2rem;          /* 32px — ≥ 18px requirement */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.25rem;       /* 20px — ≥ 18px requirement */
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   4. Header
+   ============================================================ */
+header {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: 1rem var(--panel-padding);
+  box-shadow: 0 2px 6px var(--color-shadow);
+}
+
+header h1 {
+  color: #ffffff;
+}
+
+/* ============================================================
+   5. Dashboard Grid — mobile-first CSS Grid with responsive 2-column layout
+   ============================================================ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* single column on mobile */
+  gap: var(--gap);               /* 24px ≥ 16px requirement */
+  padding: var(--gap);
+  max-width: 1200px;             /* wider to give two-column panels room */
+  margin: 0 auto;
+}
+
+/* Two-column layout at 768 px and above */
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
+   6. Panel Cards
+   ============================================================ */
+.dashboard-grid section {
+  background-color: var(--color-panel);
+  padding: var(--panel-padding);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+/* ============================================================
+   7. Greeting Panel — clock / date / greeting text
+   ============================================================ */
+#greeting-panel #clock {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+#greeting-panel #date {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+#greeting-panel #greeting {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   8. Focus Timer Panel
+   ============================================================ */
+#timer-display {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+#timer-message {
+  text-align: center;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  margin-bottom: 0.75rem;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   9. Form Elements — inputs and buttons
+   ============================================================ */
+input[type="text"],
+input[type="url"] {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s;
+}
+
+button:hover {
+  background-color: var(--color-accent-dark);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   10. To-Do Panel — form layout
+   ============================================================ */
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#todo-form input {
+  flex: 1;
+}
+
+#todo-list {
+  list-style: none;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ============================================================
+   11. Quick Links Panel — field-group spacing
+   ============================================================ */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.75rem;
+}
+
+.field-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+#links-form button {
+  margin-top: 0.25rem;
+}
+
+#links-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ============================================================
+   12. Error / Validation Messages
+   ============================================================ */
+.error-message {
+  color: var(--color-error);
+  font-size: 0.8rem;
+  min-height: 1em;
+  margin-top: 0.2rem;
+}
+
+/* ============================================================
+   13. Screen-Reader-Only Utility
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   14. To-Do List — task items
+   ============================================================ */
+#todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background-color: var(--color-bg);
+  flex-wrap: wrap;
+}
+
+#todo-list .task-text {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+/* Completed task — strikethrough + muted colour (req 3.5, 4.4) */
+#todo-list li.task-completed .task-text {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+/* Smaller action buttons inside each task row */
+#todo-list .btn-done,
+#todo-list .btn-edit,
+#todo-list .btn-delete {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+#todo-list .btn-delete {
+  background-color: var(--color-error);
+}
+
+#todo-list .btn-delete:hover {
+  background-color: #c53030;
+}
+
+/* Edit mode — full-width input inside the li */
+#todo-list .task-edit-input {
+  flex: 1;
+  min-width: 0;
+}
